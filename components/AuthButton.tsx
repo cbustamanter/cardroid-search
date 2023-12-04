@@ -22,7 +22,7 @@ export default async function AuthButton() {
   return (
     user && (
       <div className="flex items-center gap-4 text-sm mr-4">
-        Hey, {user.email}!
+        <span className="hidden md:block">Hey, {user.email}!</span>
         <form action={signOut}>
           <Button size="sm">Logout</Button>
         </form>
