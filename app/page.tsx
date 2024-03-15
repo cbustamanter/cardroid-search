@@ -53,12 +53,12 @@ const Page: React.FC<{}> = ({}) => {
             {results.map((warranty) => (
               <div
                 key={warranty.id}
-                className="text-sm text-gray-500 rounded-lg border p-4 flex justify-between items-center"
+                className="text-sm text-gray-500 rounded-lg border p-4 flex flex-col lg:flex-row lg:justify-between items-start lg:items-center"
               >
                 <div className="text-gray-800 font-bold dark:text-white">
                   {warranty.product.name}
                 </div>
-                <div className="flex flex-col items-end">
+                <div className="flex flex-col lg:items-end">
                   <p>
                     Expiración:
                     {moment(warranty.expires_at).format("DD/MM/YYYY")}
