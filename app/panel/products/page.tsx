@@ -1,10 +1,16 @@
-import { DataTable } from "@/components/table/DataTable";
-import { columns } from "@/components/products/table/Columns";
+import { Hydrate } from "@/components/hydrate";
+import { AddDialog } from "@/components/products/forms/addDialog";
+import { Products } from "@/components/products/products";
 import { getProducts } from "@/utils/actions";
+import { QueryClient, dehydrate } from "@tanstack/react-query";
 import React from "react";
 
 const Page: React.FC<{}> = async ({}) => {
-  const { data } = await getProducts();
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery({
+    queryKey: ["products"],
+    queryFn: () => getProducts(),
+  });
 
   return (
     <div className="h-full flex-1 flex-col space-y-8 p-8 md:flex">
@@ -15,8 +21,11 @@ const Page: React.FC<{}> = async ({}) => {
             Here&apos;s a list of your products!
           </p>
         </div>
+        <AddDialog />
       </div>
-      <DataTable data={data!} columns={columns} filterColumnKey="name" />
+      <Hydrate state={dehydrate(queryClient)}>
+        <Products />
+      </Hydrate>
     </div>
   );
 };

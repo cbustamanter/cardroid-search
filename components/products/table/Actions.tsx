@@ -13,6 +13,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { productSchema } from "@/components/products/data/schema";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { deleteProduct } from "@/utils/actions";
+import { useToast } from "@/components/ui/use-toast";
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -20,6 +23,28 @@ interface DataTableRowActionsProps<TData> {
 
 export function Actions<TData>({ row }: DataTableRowActionsProps<TData>) {
   const product = productSchema.parse(row.original);
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+  const deleteMutation = useMutation({
+    mutationFn: deleteProduct,
+    onSuccess: () => {
+      toast({
+        description: "Your product has been successfully deleted.",
+      });
+      queryClient.invalidateQueries({ queryKey: ["products"] });
+    },
+    onError: () => {
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+      });
+    },
+  });
+
+  const handleDelete = () => {
+    deleteMutation.mutate(product.id);
+  };
 
   return (
     <DropdownMenu>
@@ -36,7 +61,7 @@ export function Actions<TData>({ row }: DataTableRowActionsProps<TData>) {
         <DropdownMenuItem>Edit</DropdownMenuItem>
 
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Delete</DropdownMenuItem>
+        <DropdownMenuItem onClick={handleDelete}>Delete</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
