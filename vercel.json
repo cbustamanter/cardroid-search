@@ -1,5 +1,5 @@
 {
-  "redirects": [
-    { "source": "/warranties", "destination": "https://garantias.cardroid.pe" }
+  "rewrites": [
+    { "source": "/warranties/", "destination": "https://garantias.cardroid.pe" }
   ]
 }
