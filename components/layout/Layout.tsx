@@ -1,6 +1,5 @@
 import React from "react";
 import { ModeToggle } from "./ModeToggle";
-import AuthButton from "../AuthButton";
 import { Bot } from "lucide-react";
 
 interface LayoutProps {
@@ -17,7 +16,6 @@ export const Layout: React.FC<LayoutProps> = async ({ children }) => {
             <span className="hidden font-bold sm:inline-block">CarDroid</span>
           </div>
           <div className="flex">
-            <AuthButton />
             <ModeToggle />
           </div>
         </div>
