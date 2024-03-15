@@ -63,7 +63,7 @@ export const AddDialog: React.FC<AddDialogProps> = ({}) => {
   });
 
   function onSubmit({ name }: z.infer<typeof schema>) {
-    mutation.mutate(name);
+    mutation.mutate({ name });
   }
   return (
     <Dialog open={open} onOpenChange={setOpen}>
