@@ -6,7 +6,7 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[]
 
-export interface Database {
+export type Database = {
   public: {
     Tables: {
       product: {
@@ -30,28 +30,28 @@ export interface Database {
       warranty: {
         Row: {
           created_at: string
-          expires_at: string
+          expires_at: string | null
           id: string
-          product_id: string
-          registration: string
+          product_id: string | null
+          registration: string | null
         }
         Insert: {
           created_at?: string
-          expires_at: string
+          expires_at?: string | null
           id?: string
-          product_id: string
-          registration: string
+          product_id?: string | null
+          registration?: string | null
         }
         Update: {
           created_at?: string
-          expires_at?: string
+          expires_at?: string | null
           id?: string
-          product_id?: string
-          registration?: string
+          product_id?: string | null
+          registration?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "warranty_product_id_fkey"
+            foreignKeyName: "public_warranty_product_id_fkey"
             columns: ["product_id"]
             isOneToOne: false
             referencedRelation: "product"

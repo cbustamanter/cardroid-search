@@ -74,7 +74,7 @@ export default async function Login({
           )}
         </form>
         <Separator />
-        <GoogleButton />
+        {/* <GoogleButton /> */}
       </div>
     </div>
   );
