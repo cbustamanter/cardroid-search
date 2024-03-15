@@ -51,6 +51,7 @@ export const AddDialog: React.FC<AddDialogProps> = ({}) => {
       });
       queryClient.invalidateQueries({ queryKey: ["products"] });
       setOpen(false);
+      form.reset();
     },
     onError: () => {
       toast({
@@ -58,6 +59,7 @@ export const AddDialog: React.FC<AddDialogProps> = ({}) => {
         title: "Uh oh! Something went wrong.",
         description: "There was a problem with your request.",
       });
+      form.reset();
       setOpen(false);
     },
   });

@@ -63,7 +63,7 @@ export const AddDialog: React.FC<AddDialogProps> = ({}) => {
   const form = useForm<z.infer<typeof warrantySchema>>({
     resolver: zodResolver(warrantySchema),
     defaultValues: {
-      expires_at: moment().toString(),
+      expires_at: moment().add(1, "year").toString(),
       product_id: "",
       registration: "",
     },
@@ -77,6 +77,7 @@ export const AddDialog: React.FC<AddDialogProps> = ({}) => {
       });
       queryClient.invalidateQueries({ queryKey: ["warranties"] });
       setOpen(false);
+      form.reset();
     },
     onError: () => {
       toast({
@@ -85,6 +86,7 @@ export const AddDialog: React.FC<AddDialogProps> = ({}) => {
         description: "There was a problem with your request.",
       });
       setOpen(false);
+      form.reset();
     },
   });
 

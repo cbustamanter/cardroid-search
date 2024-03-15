@@ -66,3 +66,14 @@ export const deleteWarranty = async (id: Warranty["id"]) => {
   const { error } = await supabase.from("warranty").delete().eq("id", id);
   if (error) throw new Error(error.message);
 };
+
+export const searchByRegistration = async (registration: string) => {
+  const cookieStore = cookies();
+  const supabase = createSupabaseServerClient(cookieStore);
+  const results = await supabase
+    .from("warranty")
+    .select(`*, product(id, name, created_at)`)
+    .eq("registration", registration);
+
+  return results;
+};
