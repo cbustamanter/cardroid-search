@@ -1,20 +1,20 @@
 "use client";
-import React, { useState } from "react";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import React, { useState } from "react";
 
-import { searchByRegistration } from "@/utils/actions";
 import { useToast } from "@/components/ui/use-toast";
-import { Database } from "@/utils/types/supabase";
 import { Warranty, warrantySchema } from "@/components/warranties/data/schema";
-import z from "zod";
+import { searchByRegistration } from "@/utils/actions";
 import moment from "moment";
+import z from "zod";
 
 const Page: React.FC<{}> = ({}) => {
   const { toast } = useToast();
   const [results, setResults] = useState<Warranty[]>();
   const [registration, setRegistration] = useState("");
   const handleSearch = async () => {
+    setResults([]);
     if (!registration) {
       toast({
         description: "¡Cuidado! :p",
@@ -48,7 +48,7 @@ const Page: React.FC<{}> = ({}) => {
           />
           <Button onClick={handleSearch}>Buscar</Button>
         </div>
-        {results?.length && (
+        {!!results?.length && (
           <div className="flex flex-col gap-4 md:w-4/6 lg: 1/3 w-full ">
             {results.map((warranty) => (
               <div
